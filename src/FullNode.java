@@ -2,9 +2,9 @@
 // Coursework 2023/2024
 //
 // Submission by
-// YOUR_NAME_GOES_HERE
-// YOUR_STUDENT_ID_NUMBER_GOES_HERE
-// YOUR_EMAIL_GOES_HERE
+// Rideone Nahian Islam
+// 220057967
+// rideone.islam@city.ac.uk
 
 
 // DO NOT EDIT starts
