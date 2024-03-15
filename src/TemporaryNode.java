@@ -43,7 +43,9 @@ public class TemporaryNode implements TemporaryNodeInterface {
             Reader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             Writer writer = new OutputStreamWriter(socket.getOutputStream());
 
-            writer.write("NEAREST? " + );
+            // writer.write("NEAREST? " + );
+
+            socket.close();
 
             return true;
         } catch (IOException e) {

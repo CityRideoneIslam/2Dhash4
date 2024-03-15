@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67f3b9a2-3a8a-4c7f-a3c5-dfd01e26cca2" name="Changes" comment="" />
+    <list default="true" id="67f3b9a2-3a8a-4c7f-a3c5-dfd01e26cca2" name="Changes" comment="Initial commit with some changes to TemporaryNode.java">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FullNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FullNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TemporaryNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TemporaryNode.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -9,6 +13,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2diyB9wTTDdfv3uOzocCcK8p7hu" />
   <component name="ProjectViewState">
@@ -20,7 +27,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/nahia/OneDrive/Desktop/Virus/UNI WORK/Year 2/Computer Networks/CW/2D#4-initial-git-repository"
+    "last_opened_file_path": "C:/Users/nahia/OneDrive/Desktop/Virus/UNI WORK/Year 2/Computer Networks/CW/2D#4-initial-git-repository/2D#4"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -32,7 +39,16 @@
       <option name="presentableId" value="Default" />
       <updated>1710505055007</updated>
       <workItem from="1710505056551" duration="10000" />
+      <workItem from="1710512318526" duration="390000" />
     </task>
+    <task id="LOCAL-00001" summary="Initial commit with some changes to TemporaryNode.java">
+      <created>1710512400264</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1710512400264</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -48,5 +64,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit with some changes to TemporaryNode.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit with some changes to TemporaryNode.java" />
   </component>
 </project>
