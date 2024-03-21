@@ -11,7 +11,6 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 // DO NOT EDIT starts
 interface FullNodeInterface {
@@ -22,6 +21,11 @@ interface FullNodeInterface {
 
 
 public class FullNode implements FullNodeInterface {
+    ServerSocket socket;
+
+    Socket client;
+    private BufferedReader reader;
+    private Writer writer;
 
     public boolean listen(String ipAddress, int portNumber) {
 	// Implement this!
@@ -29,25 +33,42 @@ public class FullNode implements FullNodeInterface {
 	// Return false otherwise
         try{
             InetAddress host = InetAddress.getByName(ipAddress);
-            ServerSocket socket = new ServerSocket(portNumber);
-
-            Socket clientSocket = socket.accept();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            Writer writer = new OutputStreamWriter(clientSocket.getOutputStream());
-
-            clientSocket.close();
+            socket = new ServerSocket(portNumber);
+            client = socket.accept();
 
             return true;
 
         } catch (IOException e) {
+            System.err.println(e);
             return false;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
     }
-    
+
     public void handleIncomingConnections(String startingNodeName, String startingNodeAddress) {
 	// Implement this!
-	return;
+        try {
+            writer = new OutputStreamWriter(client.getOutputStream());
+            reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            String res = reader.readLine();
+
+            if (res.startsWith("START")) {
+                System.out.println("Connected to Temporary Node!\n");
+                writer.write("START 1 " + startingNodeName + "\n");
+                writer.flush();
+            }
+
+            if (res.startsWith("PUT")) {
+
+                writer.write("SUCCESS");
+                writer.flush();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return;
     }
 }

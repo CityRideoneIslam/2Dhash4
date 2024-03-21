@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="67f3b9a2-3a8a-4c7f-a3c5-dfd01e26cca2" name="Changes" comment="Initial commit with some changes to TemporaryNode.java">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="67f3b9a2-3a8a-4c7f-a3c5-dfd01e26cca2" name="Changes" comment="Made a start on FullNode.java">
+      <change afterPath="$PROJECT_DIR$/src/Crinmge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CmdLineFullNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CmdLineFullNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FullNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FullNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TemporaryNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TemporaryNode.java" afterDir="false" />
     </list>
@@ -11,12 +16,22 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2diyB9wTTDdfv3uOzocCcK8p7hu" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -27,9 +42,27 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/nahia/OneDrive/Desktop/Virus/UNI WORK/Year 2/Computer Networks/CW/2D#4-initial-git-repository/2D#4"
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/nahia/OneDrive/Desktop/Virus/UNI WORK/Year 2/Computer Networks/CW/2D#4-initial-git-repository/2D#4",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-20.0.2-corretto-20.0.2.1-4caba194b151-5bc9ecd2" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -39,7 +72,14 @@
       <option name="presentableId" value="Default" />
       <updated>1710505055007</updated>
       <workItem from="1710505056551" duration="10000" />
-      <workItem from="1710512318526" duration="390000" />
+      <workItem from="1710512318526" duration="6292000" />
+      <workItem from="1710678408411" duration="235000" />
+      <workItem from="1710678662378" duration="22000" />
+      <workItem from="1710678942815" duration="3922000" />
+      <workItem from="1710692844046" duration="1730000" />
+      <workItem from="1710707765855" duration="3994000" />
+      <workItem from="1710774994375" duration="5969000" />
+      <workItem from="1711022123354" duration="2963000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit with some changes to TemporaryNode.java">
       <created>1710512400264</created>
@@ -48,8 +88,20 @@
       <option name="project" value="LOCAL" />
       <updated>1710512400264</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Made a start on FullNode.java">
+      <created>1710512998670</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1710512998670</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TerminalProjectNonSharedOptionsProvider">
+    <envs>
+      <env key="CLASSPATH" value="C:\Users\nahia\OneDrive\Desktop\Virus\UNI WORK\Year 2\Computer Networks\CW\2D#4-initial-git-repository\2D#4\out\production\2D#4" />
+    </envs>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
@@ -67,6 +119,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit with some changes to TemporaryNode.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit with some changes to TemporaryNode.java" />
+    <MESSAGE value="Made a start on FullNode.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made a start on FullNode.java" />
   </component>
 </project>

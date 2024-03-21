@@ -23,11 +23,11 @@ public class CmdLineFullNode {
 	    int portNumber;
 	    try {
                 portNumber = Integer.parseInt(args[3]);
-            } catch (Exception e) {
+        } catch (Exception e) {
                 System.err.println("Exception parsing the port number");
                 System.err.println(e);
                 return;
-            }
+        }
 
 	    
             // Use a FullNode object to be a full participant in the 2D#4 network
