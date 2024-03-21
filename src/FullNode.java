@@ -11,6 +11,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 
 // DO NOT EDIT starts
 interface FullNodeInterface {
@@ -26,6 +27,8 @@ public class FullNode implements FullNodeInterface {
     Socket client;
     private BufferedReader reader;
     private Writer writer;
+    private String res;
+    private HashMap<String, String> table;
 
     public boolean listen(String ipAddress, int portNumber) {
 	// Implement this!
@@ -35,6 +38,9 @@ public class FullNode implements FullNodeInterface {
             InetAddress host = InetAddress.getByName(ipAddress);
             socket = new ServerSocket(portNumber);
             client = socket.accept();
+            writer = new OutputStreamWriter(client.getOutputStream());
+            reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            table = new HashMap<>();
 
             return true;
 
@@ -50,9 +56,7 @@ public class FullNode implements FullNodeInterface {
     public void handleIncomingConnections(String startingNodeName, String startingNodeAddress) {
 	// Implement this!
         try {
-            writer = new OutputStreamWriter(client.getOutputStream());
-            reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            String res = reader.readLine();
+            res = reader.readLine();
 
             if (res.startsWith("START")) {
                 System.out.println("Connected to Temporary Node!\n");
@@ -60,12 +64,35 @@ public class FullNode implements FullNodeInterface {
                 writer.flush();
             }
 
-            if (res.startsWith("PUT")) {
+            res = reader.readLine();
 
-                writer.write("SUCCESS");
+            if (res.startsWith("PUT?")) {
+                String[] put = res.split(" ");
+
+                int keys = Integer.parseInt(put[1]);
+                int values = Integer.parseInt(put[2]);
+
+                String key = "";
+                String value = "";
+
+                for (int i = 0; i < keys; i++){
+                    res = reader.readLine();
+                    key += res;
+                    System.out.println(res);
+                }
+
+                for (int i = 0; i < values; i++){
+                    res = reader.readLine();
+                    value += res;
+                    System.out.println(res);
+                }
+                table.put(key, value);
+                System.out.println(table);
+                writer.write("SUCCESS\n");
                 writer.flush();
             }
         } catch (IOException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
 

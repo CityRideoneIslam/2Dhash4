@@ -25,6 +25,7 @@ public class TemporaryNode implements TemporaryNodeInterface {
     private Socket socket; // Store the socket for communication
     private Writer writer;
     private BufferedReader reader;
+    private String res;
 
     public boolean start(String startingNodeName, String startingNodeAddress) {
         try {
@@ -42,7 +43,7 @@ public class TemporaryNode implements TemporaryNodeInterface {
 
             // Read START message from the starting node (for confirmation)
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String res = reader.readLine();
+            res = reader.readLine();
             if (res.startsWith("START")) {
                 System.out.println("Connected to full node!\n");
                 return true;
@@ -57,19 +58,16 @@ public class TemporaryNode implements TemporaryNodeInterface {
 
     public boolean store(String key, String value) {
         try {
-
-            Writer writer = new OutputStreamWriter(socket.getOutputStream());
-            writer.write("PUT? " + key + "\n " + value + "\n");
+            int nKey = countSub(key, "\n");
+            int nValue = countSub(value, "\n");
+            writer.write("PUT? " + nKey + " " + nValue + "\n" + key + value);
             writer.flush();
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String response = reader.readLine();
-            if (response.equals("SUCCESS")) {
-                return true;
-            } else {
-                return false;
-            }
+            res = reader.readLine();
+            System.out.println(res);
+            return res.equals("SUCCESS");
         } catch (IOException e) {
+            e.printStackTrace();
             System.err.println(e);
             closeSocket();
             return false;
@@ -108,5 +106,17 @@ public class TemporaryNode implements TemporaryNodeInterface {
         } catch (IOException e) {
             // Ignore any errors during socket closure
         }
+    }
+
+    private int countSub(String s, String sub) {
+        int n = 0;
+        int index = 0;
+
+        while ((index = s.indexOf(sub, index)) != -1) {
+            n++;
+            index += sub.length(); // Move the search index ahead by the substring length
+        }
+
+        return n;
     }
 }

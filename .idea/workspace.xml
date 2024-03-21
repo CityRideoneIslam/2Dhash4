@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67f3b9a2-3a8a-4c7f-a3c5-dfd01e26cca2" name="Changes" comment="Made a start on FullNode.java">
-      <change afterPath="$PROJECT_DIR$/src/Crinmge.java" afterDir="false" />
+    <list default="true" id="67f3b9a2-3a8a-4c7f-a3c5-dfd01e26cca2" name="Changes" comment="Connected TemporaryNode to FullNode">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CmdLineFullNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CmdLineFullNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FullNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FullNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TemporaryNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TemporaryNode.java" afterDir="false" />
     </list>
@@ -16,6 +14,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ChangesViewManager" show_ignored="true" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -37,25 +36,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/nahia/OneDrive/Desktop/Virus/UNI WORK/Year 2/Computer Networks/CW/2D#4-initial-git-repository/2D#4",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/nahia/OneDrive/Desktop/Virus/UNI WORK/Year 2/Computer Networks/CW/2D#4-initial-git-repository/2D#4&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -79,7 +78,8 @@
       <workItem from="1710692844046" duration="1730000" />
       <workItem from="1710707765855" duration="3994000" />
       <workItem from="1710774994375" duration="5969000" />
-      <workItem from="1711022123354" duration="2963000" />
+      <workItem from="1711022123354" duration="7652000" />
+      <workItem from="1711035403357" duration="3859000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit with some changes to TemporaryNode.java">
       <created>1710512400264</created>
@@ -95,7 +95,23 @@
       <option name="project" value="LOCAL" />
       <updated>1710512998670</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Connected TemporaryNode to FullNode">
+      <option name="closed" value="true" />
+      <created>1711030285241</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1711030285241</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Connected TemporaryNode to FullNode">
+      <option name="closed" value="true" />
+      <created>1711030443827</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1711030443827</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TerminalProjectNonSharedOptionsProvider">
@@ -120,6 +136,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit with some changes to TemporaryNode.java" />
     <MESSAGE value="Made a start on FullNode.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made a start on FullNode.java" />
+    <MESSAGE value="Connected TemporaryNode to FullNode" />
+    <option name="LAST_COMMIT_MESSAGE" value="Connected TemporaryNode to FullNode" />
   </component>
 </project>
