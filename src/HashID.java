@@ -8,7 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 public class HashID {
-
     public static byte [] computeHashID(String line) throws Exception {
 		if (line.endsWith("\n")) {
 			// What this does and how it works is covered in a later lecture
@@ -38,6 +37,15 @@ public class HashID {
 		}
 
 		return 256 - distance; // 256 - (number of matching bits)
+	}
+
+	public static String computeHashHex(String s) throws Exception {
+		byte[] hashedString = computeHashID(s);
+		StringBuilder hexBuilder = new StringBuilder(hashedString.length * 2);
+		for (byte b : hashedString) {
+			hexBuilder.append(String.format("%02X", b));
+		}
+		return hexBuilder.toString();
 	}
 
 }

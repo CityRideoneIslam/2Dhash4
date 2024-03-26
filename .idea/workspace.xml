@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67f3b9a2-3a8a-4c7f-a3c5-dfd01e26cca2" name="Changes" comment="Creates table to store data">
-      <change afterPath="$PROJECT_DIR$/src/NodeContainer.java" afterDir="false" />
+    <list default="true" id="67f3b9a2-3a8a-4c7f-a3c5-dfd01e26cca2" name="Changes" comment="Done NOTIFY?">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FullNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FullNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HashID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HashID.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TemporaryNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TemporaryNode.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +87,7 @@
       <workItem from="1711035403357" duration="15049000" />
       <workItem from="1711277750623" duration="16092000" />
       <workItem from="1711461590992" duration="5604000" />
-      <workItem from="1711467756203" duration="982000" />
+      <workItem from="1711467756203" duration="3227000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit with some changes to TemporaryNode.java">
       <created>1710512400264</created>
@@ -129,7 +127,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711039658297</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Done NOTIFY?">
+      <option name="closed" value="true" />
+      <created>1711473996984</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1711473996985</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TerminalProjectNonSharedOptionsProvider">
@@ -156,6 +162,7 @@
     <MESSAGE value="Made a start on FullNode.java" />
     <MESSAGE value="Connected TemporaryNode to FullNode" />
     <MESSAGE value="Creates table to store data" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creates table to store data" />
+    <MESSAGE value="Done NOTIFY?" />
+    <option name="LAST_COMMIT_MESSAGE" value="Done NOTIFY?" />
   </component>
 </project>

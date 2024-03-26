@@ -102,6 +102,10 @@ public class FullNode implements FullNodeInterface {
                             notifyHandle();
                             break;
 
+                        case "REQUEST?":
+                            requestHandle();
+                            break;
+
                         default:
                             writer.write("END INVALID REQUEST");
                             writer.flush();
@@ -227,5 +231,7 @@ public class FullNode implements FullNodeInterface {
             throw new RuntimeException(e);
         }
     }
+
+    private void requestHandle(){}
 
 }
