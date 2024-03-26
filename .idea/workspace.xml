@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67f3b9a2-3a8a-4c7f-a3c5-dfd01e26cca2" name="Changes" comment="Connected TemporaryNode to FullNode">
+    <list default="true" id="67f3b9a2-3a8a-4c7f-a3c5-dfd01e26cca2" name="Changes" comment="Creates table to store data">
+      <change afterPath="$PROJECT_DIR$/src/NodeContainer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FullNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FullNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HashID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HashID.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TemporaryNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TemporaryNode.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +27,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.jdks/openjdk-20.0.1/lib/src.zip!/java.base/java/lang/Integer.java" root0="SKIP_INSPECTION" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -38,6 +43,8 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Application.HashID.executor&quot;: &quot;Run&quot;,
+    &quot;Application.NodeContainer.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
@@ -79,7 +86,10 @@
       <workItem from="1710707765855" duration="3994000" />
       <workItem from="1710774994375" duration="5969000" />
       <workItem from="1711022123354" duration="7652000" />
-      <workItem from="1711035403357" duration="3859000" />
+      <workItem from="1711035403357" duration="15049000" />
+      <workItem from="1711277750623" duration="16092000" />
+      <workItem from="1711461590992" duration="5604000" />
+      <workItem from="1711467756203" duration="982000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit with some changes to TemporaryNode.java">
       <created>1710512400264</created>
@@ -111,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711030443827</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Creates table to store data">
+      <option name="closed" value="true" />
+      <created>1711039658297</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1711039658297</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TerminalProjectNonSharedOptionsProvider">
@@ -137,6 +155,7 @@
     <MESSAGE value="Initial commit with some changes to TemporaryNode.java" />
     <MESSAGE value="Made a start on FullNode.java" />
     <MESSAGE value="Connected TemporaryNode to FullNode" />
-    <option name="LAST_COMMIT_MESSAGE" value="Connected TemporaryNode to FullNode" />
+    <MESSAGE value="Creates table to store data" />
+    <option name="LAST_COMMIT_MESSAGE" value="Creates table to store data" />
   </component>
 </project>

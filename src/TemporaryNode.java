@@ -22,6 +22,8 @@ interface TemporaryNodeInterface {
 
 
 public class TemporaryNode implements TemporaryNodeInterface {
+    private String startingNodeName;
+    private String startingNodeAddress;
     private Socket socket; // Store the socket for communication
     private Writer writer;
     private BufferedReader reader;
@@ -29,6 +31,8 @@ public class TemporaryNode implements TemporaryNodeInterface {
 
     public boolean start(String startingNodeName, String startingNodeAddress) {
         try {
+            this.startingNodeName = startingNodeName;
+            this.startingNodeAddress = startingNodeAddress;
             // Establish connection to starting node
             String[] ip_address_port = startingNodeAddress.split(":");
             String ip_address = ip_address_port[0];
@@ -57,6 +61,11 @@ public class TemporaryNode implements TemporaryNodeInterface {
     }
 
     public boolean store(String key, String value) {
+        if (!echo()) {
+            System.err.println("ECHO failed. Connection or Full Node might have an issue.");
+            return false; // Or take corrective action
+        }
+
         try {
             int nKey = countSub(key, "\n");
             int nValue = countSub(value, "\n");
@@ -65,7 +74,20 @@ public class TemporaryNode implements TemporaryNodeInterface {
 
             res = reader.readLine();
             System.out.println(res);
-            return res.equals("SUCCESS");
+            if(res.equals("SUCCESS")){
+                closeSocket();
+                return true;
+            }
+            else if (res.equals("FAILURE")){
+                return false;
+            }
+            else{
+                System.err.println("Unexpected response from full node");
+                writer.write("END Connection issue\n"); // Specify a reason if possible
+                writer.flush();
+                closeSocket(); // Ensure socket is closed
+                return false;}
+
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println(e);
@@ -76,24 +98,29 @@ public class TemporaryNode implements TemporaryNodeInterface {
 
     public String get(String key) {
         try {
-            Writer writer = new OutputStreamWriter(socket.getOutputStream());
-            writer.write("GET? 1\n" + key + "\n");
+            writer.write("GET?\n" + key + "\n");
             writer.flush();
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String response = reader.readLine();
-            if (response.startsWith("VALUE")) {
-                int numLines = Integer.parseInt(response.substring(6));
-                StringBuilder valueBuilder = new StringBuilder();
-                for (int i = 0; i < numLines; i++) {
-                    valueBuilder.append(reader.readLine());
+            if (response.equals("VALUE")) {
+                // Read and return the value
+                int valueLines = Integer.parseInt(response.split(" ")[1]);
+                String value = "";
+                for (int i = 0; i < valueLines; i++) {
+                    value += reader.readLine() + "\n";
                 }
-                return valueBuilder.toString();
+                return value; // Return the retrieved value
+
+            } else if (response.equals("NOPE")) {
+                System.out.println("Key not found.");
+                return null; // Indicate that the key was not found
             } else {
+                System.err.println("Unexpected response from full node: " + response);
                 return null;
             }
+
         } catch (IOException e) {
-            closeSocket();
+            System.err.println("Error during GET operation: " + e.getMessage());
             return null;
         }
     }
@@ -108,7 +135,27 @@ public class TemporaryNode implements TemporaryNodeInterface {
         }
     }
 
-    private int countSub(String s, String sub) {
+    private boolean echo() {
+        try {
+            writer.write("ECHO?\n");
+            writer.flush();
+
+            res = reader.readLine();
+            System.out.println(res);
+
+            if (res != null && res.equals("OHCE")) {
+                return true; // Connection alive and responder working
+            } else {
+                return false; // Potential connection or responder issue
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error during ECHO exchange: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static int countSub(String s, String sub) {
         int n = 0;
         int index = 0;
 

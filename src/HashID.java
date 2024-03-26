@@ -10,15 +10,34 @@ import java.security.MessageDigest;
 public class HashID {
 
     public static byte [] computeHashID(String line) throws Exception {
-	if (line.endsWith("\n")) {
-	    // What this does and how it works is covered in a later lecture
-	    MessageDigest md = MessageDigest.getInstance("SHA-256");
-	    md.update(line.getBytes(StandardCharsets.UTF_8));
-	    return md.digest();
+		if (line.endsWith("\n")) {
+			// What this does and how it works is covered in a later lecture
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			md.update(line.getBytes(StandardCharsets.UTF_8));
+			return md.digest();
 
-	} else {
-	    // 2D#4 computes hashIDs of lines, i.e. strings ending with '\n'
-	    throw new Exception("No new line at the end of input to HashID");
-	}
+		} else {
+			// 2D#4 computes hashIDs of lines, i.e. strings ending with '\n'
+			throw new Exception("No new line at the end of input to HashID");
+		}
     }
+
+	public static int calculateDistance(byte[] hashID1, byte[] hashID2) {
+		int distance = 0;
+
+		for (int i = 0; i < hashID1.length; i++) {
+			byte xorResult = (byte) (hashID1[i] ^ hashID2[i]);
+
+			for (int bit = 7; bit >= 0; bit--) { // Iterate over bits within a byte
+				if ((xorResult & (1 << bit)) == 0) {
+					distance++;  // If bit match, increment distance
+				} else {
+					break; // Non-matching bit found, stop checking this byte
+				}
+			}
+		}
+
+		return 256 - distance; // 256 - (number of matching bits)
+	}
+
 }

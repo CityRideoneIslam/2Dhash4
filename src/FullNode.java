@@ -11,7 +11,10 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // DO NOT EDIT starts
 interface FullNodeInterface {
@@ -23,24 +26,32 @@ interface FullNodeInterface {
 
 public class FullNode implements FullNodeInterface {
     ServerSocket socket;
-
+    String ipAddress;
+    int port;
     Socket client;
     private BufferedReader reader;
     private Writer writer;
     private String res;
-    private HashMap<String, String> table;
+    private String startingNodeName;
+    private final HashMap<String, String> table;
+    private final HashMap<Integer, ArrayList<NodeContainer>> networkMap;
+
+    public FullNode() {
+        table = new HashMap<>();
+        networkMap = new HashMap<>();
+    }
 
     public boolean listen(String ipAddress, int portNumber) {
 	// Implement this!
 	// Return true if the node can accept incoming connections
 	// Return false otherwise
         try{
-            InetAddress host = InetAddress.getByName(ipAddress);
             socket = new ServerSocket(portNumber);
             client = socket.accept();
-            writer = new OutputStreamWriter(client.getOutputStream());
-            reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            table = new HashMap<>();
+            this.ipAddress = ipAddress;
+            this.port = portNumber;
+
+            initialise();
 
             return true;
 
@@ -55,47 +66,166 @@ public class FullNode implements FullNodeInterface {
 
     public void handleIncomingConnections(String startingNodeName, String startingNodeAddress) {
 	// Implement this!
+        this.startingNodeName = startingNodeName;
+
+        //networkMap.put(startingNodeName, startingNodeAddress);
+
         try {
-            res = reader.readLine();
+            while(true) {
+                if(client.isClosed()){
+                    client = socket.accept();
+                    initialise();
 
-            if (res.startsWith("START")) {
-                System.out.println("Connected to Temporary Node!\n");
-                writer.write("START 1 " + startingNodeName + "\n");
-                writer.flush();
-            }
-
-            res = reader.readLine();
-
-            if (res.startsWith("PUT?")) {
-                String[] put = res.split(" ");
-
-                int keys = Integer.parseInt(put[1]);
-                int values = Integer.parseInt(put[2]);
-
-                String key = "";
-                String value = "";
-
-                for (int i = 0; i < keys; i++){
-                    res = reader.readLine();
-                    key += res;
-                    System.out.println(res);
                 }
-
-                for (int i = 0; i < values; i++){
+                if(!client.isClosed() && reader.ready()) {
                     res = reader.readLine();
-                    value += res;
-                    System.out.println(res);
+                    String[] checkRes = res.split(" ");
+
+                    switch (checkRes[0]) {
+                        case "START":
+                            startHandle();
+                            break;
+
+                        case "ECHO?":
+                            echoHandle();
+                            break;
+
+                        case "PUT?": //Do FAILED after
+                            putHandle();
+                            break;
+
+                        case "GET?":
+                            getHandle();
+                            break;
+
+                        case "NOTIFY?":
+                            notifyHandle();
+                            break;
+
+                        default:
+                            writer.write("END INVALID REQUEST");
+                            writer.flush();
+                            System.out.println("INVALID REQUEST");
+                            client.close();
+                    }
                 }
-                table.put(key, value);
-                System.out.println(table);
-                writer.write("SUCCESS\n");
-                writer.flush();
             }
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
-        return;
     }
+
+    private void initialise(){
+        try {
+            writer = new OutputStreamWriter(client.getOutputStream());
+            reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void startHandle() throws IOException {
+        System.out.println("Connected to Temporary Node!\n");
+        writer.write("START 1 " + startingNodeName + "\n");
+        writer.flush();
+    }
+
+    private void echoHandle() throws IOException {
+        System.out.println(res);
+        writer.write("OHCE\n");
+        writer.flush();
+    }
+
+    private void putHandle() throws IOException {
+        String[] put = res.split(" ");
+
+        System.out.println(res);
+
+        int keys = Integer.parseInt(put[1]);
+        int values = Integer.parseInt(put[2]);
+
+        // Read the key and value
+        String key = "";
+        String value = "";
+        for (int i = 0; i < keys; i++) {
+            key += reader.readLine() + "\n";
+        }
+        for (int i = 0; i < values; i++) {
+            value += reader.readLine() + "\n";
+        }
+
+        // Determine if this node should store the key-value pair
+
+        table.put(key, value);
+        writer.write("SUCCESS\n");
+
+        System.out.println(table);
+        writer.flush();
+        client.close();
+    }
+
+    private void getHandle() throws IOException{
+        res = reader.readLine();
+        System.out.println(res);
+        int keyLines = Integer.parseInt(res);
+        String key = "";
+        for (int i = 0; i < keyLines; i++) {
+            key += reader.readLine() + "\n";
+        }
+
+        if (table.containsKey(key)) { // Replace 'table' with your data structure
+            writer.write("VALUE\n");
+            String value = table.get(key);
+            writer.write(TemporaryNode.countSub(value, "\n") + "\n"); // Count lines in the value
+            writer.write(value);
+        } else {
+            writer.write("NOPE\n");
+        }
+        writer.flush();
+    }
+
+    private void notifyHandle(){
+        try {
+            // Read node name and address
+            String nodeName = reader.readLine();
+            String nodeAddress = reader.readLine();
+
+            NodeContainer newNode = new NodeContainer(nodeName, nodeAddress);
+
+            byte[] h1 = HashID.computeHashID(startingNodeName);
+            byte[] h2 = HashID.computeHashID(nodeName);
+
+            Integer dist = HashID.calculateDistance(h1, h2);
+
+            if (networkMap.containsKey(dist)){
+                ArrayList<NodeContainer> container = networkMap.get(dist);
+                // Add the new node if there are less than 3 nodes with the same distance
+                if (container.size() < 3){
+                    container.add(newNode);
+                }else{
+                    container.remove(0);
+                    container.add(newNode);
+                }
+                networkMap.put(dist, container);
+            }else{
+                // Add new node container if it doesn't exist already to a given distance
+                ArrayList<NodeContainer> nc = new ArrayList<>();
+                nc.add(newNode);
+                networkMap.put(dist, nc);
+            }
+
+            // Respond with "NOTIFIED"
+            writer.write("NOTIFIED\n");
+            writer.flush();
+
+        } catch (IOException e) {
+            System.err.println("Error during NOTIFY handling: " + e.getMessage());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
