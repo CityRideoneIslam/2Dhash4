@@ -19,7 +19,7 @@ import java.util.Map;
 // DO NOT EDIT starts
 interface FullNodeInterface {
     public boolean listen(String ipAddress, int portNumber);
-    public void handleIncomingConnections(String startingNodeName, String startingNodeAddress);
+    public void handleIncomingConnections(String startingNodeName, String startingNodeAddress) throws Exception;
 }
 // DO NOT EDIT ends
 
@@ -64,13 +64,14 @@ public class FullNode implements FullNodeInterface {
 
     }
 
-    public void handleIncomingConnections(String startingNodeName, String startingNodeAddress) {
+    public void handleIncomingConnections(String startingNodeName, String startingNodeAddress){
 	// Implement this!
         this.startingNodeName = startingNodeName;
 
         //networkMap.put(startingNodeName, startingNodeAddress);
 
         try {
+            updateNetworkMap(startingNodeName, startingNodeAddress);
             while(true) {
                 if(client.isClosed()){
                     client = socket.accept();
@@ -102,8 +103,8 @@ public class FullNode implements FullNodeInterface {
                             notifyHandle();
                             break;
 
-                        case "REQUEST?":
-                            requestHandle();
+                        case "NEAREST?":
+                            nearestHandle();
                             break;
 
                         default:
@@ -115,6 +116,9 @@ public class FullNode implements FullNodeInterface {
                 }
             }
         } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
@@ -196,29 +200,7 @@ public class FullNode implements FullNodeInterface {
             String nodeName = reader.readLine();
             String nodeAddress = reader.readLine();
 
-            NodeContainer newNode = new NodeContainer(nodeName, nodeAddress);
-
-            byte[] h1 = HashID.computeHashID(startingNodeName);
-            byte[] h2 = HashID.computeHashID(nodeName);
-
-            Integer dist = HashID.calculateDistance(h1, h2);
-
-            if (networkMap.containsKey(dist)){
-                ArrayList<NodeContainer> container = networkMap.get(dist);
-                // Add the new node if there are less than 3 nodes with the same distance
-                if (container.size() < 3){
-                    container.add(newNode);
-                }else{
-                    container.remove(0);
-                    container.add(newNode);
-                }
-                networkMap.put(dist, container);
-            }else{
-                // Add new node container if it doesn't exist already to a given distance
-                ArrayList<NodeContainer> nc = new ArrayList<>();
-                nc.add(newNode);
-                networkMap.put(dist, nc);
-            }
+            updateNetworkMap(nodeName + "\n", nodeAddress + "\n");
 
             // Respond with "NOTIFIED"
             writer.write("NOTIFIED\n");
@@ -232,6 +214,53 @@ public class FullNode implements FullNodeInterface {
         }
     }
 
-    private void requestHandle(){}
+    public void updateNetworkMap(String name, String addr) throws Exception {
+        NodeContainer newNode = new NodeContainer(name, addr);
+        byte[] h1 = HashID.computeHashID(startingNodeName);
+        byte[] h2 = HashID.computeHashID(name);
 
+        Integer dist = HashID.calculateDistance(h1, h2);
+
+        if (networkMap.containsKey(dist)){
+            ArrayList<NodeContainer> container = networkMap.get(dist);
+            // Add the new node if there are less than 3 nodes with the same distance
+            if (container.size() < 3){
+                container.add(newNode);
+            }else{
+                container.remove(0);
+                container.add(newNode);
+            }
+            networkMap.put(dist, container);
+        }else{
+            // Add new node container if it doesn't exist already to a given distance
+            ArrayList<NodeContainer> nc = new ArrayList<>();
+            nc.add(newNode);
+            networkMap.put(dist, nc);
+        }
+    }
+
+    private void nearestHandle() throws Exception {
+        String hexRequest = res.split(" ")[1];
+        int distance = HashID.calculateDistance(HashID.hexStringToByteArray(hexRequest), HashID.computeHashID(startingNodeName));
+        List<NodeContainer> container = new ArrayList<>();
+        String message = "";
+
+        for (int i = 0; i >= 0 && container.size() < 3; i++){
+            List<NodeContainer> tempContainer = networkMap.get(distance - i);
+
+            for(NodeContainer node: tempContainer){
+                container.add(node);
+                if(container.size() == 3){
+                    break;
+                }
+            }
+        }
+
+        for(NodeContainer node: container){
+            message += node.getNodeName() +"\n" + node.getAddress() + "\n";
+        }
+
+        writer.write("NODES " + container.size() + "\n" + message);
+        writer.flush();
+    }
 }
